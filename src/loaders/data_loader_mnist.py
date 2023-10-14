@@ -1,25 +1,20 @@
-import numpy as np
+from loaders import DataLoader
 import pandas as pd
+import numpy as np
 
-from .data_loader import DataLoader
 
 class DataLoaderMNIST(DataLoader):
-    def __init__(self, filename, n_samples = None):
-        self._filename = filename
-        self._n_samples = n_samples
 
-    @property
-    def filename(self):
-        return self._filename
-
-    @filename.setter
-    def filename(self, new_filename):
-        self._filename = new_filename
+    def __init__(self, filename, n_samples=None):
+        self.filename = filename
+        self.n_samples = n_samples
 
     def load_data(self):
-        data = pd.read_csv(self._filename) # reading data from the CSV file into a pandas DataFrame
-        data = np.array(data) # construct a ndarray from a pandas DataFrame
-
-
-
-
+        # loads data from a CSV file hosted in our repository
+        data = pd.read_csv(self.filename)
+        data = np.array(data)  # cast pandas dataframe to numpy array
+        if self.n_samples is not None:
+            data = data[:self.n_samples, :]
+        y = data[:, 0]
+        x = data[:, 1:] / 255
+        return x, y
