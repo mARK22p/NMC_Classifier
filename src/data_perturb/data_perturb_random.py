@@ -6,7 +6,6 @@ class CDataPerturbRandom(CDataPerturb):
         self._min_value = min_value
         self._max_value = max_value
         self._k = k
-        pass
 
     def data_perturbation(self, x):
         print('CDataPerturbationRandom data_perturbation')
