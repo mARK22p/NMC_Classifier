@@ -4,7 +4,11 @@ import numpy as np
 
 
 class CDataPerturb(ABC):
-
+    """
+    By adding noise to your synthetic data, you give your model the opportunity to generalise on the noisy data
+    and learn the underlying patterns in the data instead of fitting each and every data-point. This could
+    prevent over-fitting and improve the model’s performance during production.
+    """
     def __init__(self, X):
         self._X = X
 
@@ -19,4 +23,3 @@ class CDataPerturb(ABC):
             X_perturbed[i, :] = self.data_perturbation(self._X[i])
 
         return X_perturbed
-            #data_perturbation(_X[i])
