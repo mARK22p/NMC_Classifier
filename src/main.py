@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-ENABLE_DISPLAY = True
+ENABLE_DISPLAY = False
 
 # ----------------Internal libraries----------------
 from splitters import split_data
