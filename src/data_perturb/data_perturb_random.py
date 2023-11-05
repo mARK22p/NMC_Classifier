@@ -31,16 +31,19 @@ class CDataPerturbRandom(CDataPerturb):
         self._max_value = value
 
     @property
-    def K(self):
+    def k(self):
         return self._K
 
-    @K.setter
-    def K(self, value):
+    @k.setter
+    def k(self, value):
         self._K = value
 
     def data_perturbation(self, x):
-        x_perturbed = np.zeros(shape=x.shape)
-        noise = np.random.uniform(self._min_value,self._max_value,self._k)
-        x_perturbed = (x[: self._k] + noise) % self._max_value
-
-        return x_perturbed
+        idx = np.array(list(range(0, x.size)))
+        np.random.shuffle(idx)
+        idx = idx[:self._k]
+        #xp = x.copy()
+        x[idx] = np.random.randint(
+            low=self._min_value,
+            high=self._max_value + 1, size=self._k)
+        return x

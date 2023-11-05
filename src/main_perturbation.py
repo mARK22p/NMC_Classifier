@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-ENABLE_DISPLAY = False
+ENABLE_DISPLAY = True
 
 # ----------------Internal libraries----------------
 from splitters import split_data
@@ -31,10 +31,15 @@ if __name__ == "__main__":
         # centroids is a matrix with 10 elements with a mean of training samples
         display_utils.plot_ten_digits(clf.centroids, list(range(0, clf.centroids.shape[0])))
         plt.show()
-
-    y_predicted = clf.predict(xts)
-
-    # compute the test error (fraction of samples that are misclassified)
-    print("Test error: " + str(np.mean(yts != y_predicted)))
-
-
+    
+    # perturbation on training data
+    perturbation = CDataPerturbRandom(k=1)
+    img = xtr[0,:]
+    plt.figure()
+    plt.imshow(img.reshape(28, 28), cmap="gray")
+    plt.show()
+    img_perturbed = perturbation.data_perturbation(img)
+    plt.figure()
+    plt.imshow(img_perturbed.reshape(28, 28), cmap="gray")
+    plt.show()
+    
