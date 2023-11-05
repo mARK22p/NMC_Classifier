@@ -8,6 +8,7 @@ ENABLE_DISPLAY = False
 from splitters import split_data
 from loaders import CDataLoaderMNIST
 from data_perturb import CDataPerturbRandom
+from data_perturb import CDataPerturbGaussian
 from utils import display_utils
 from classifiers import NMC
 # --------------End Internal libraries--------------
@@ -32,14 +33,21 @@ if __name__ == "__main__":
         display_utils.plot_ten_digits(clf.centroids, list(range(0, clf.centroids.shape[0])))
         plt.show()
     
-    # perturbation on training data
-    perturbation = CDataPerturbRandom(k=100)
+    # perturbation on training data random
+    random_perturbation = CDataPerturbRandom(k=100)
     img = xtr[0,:]
     plt.figure()
     plt.imshow(img.reshape(28, 28), cmap="gray")
     plt.show()
-    img_perturbed = perturbation.data_perturbation(img)
+    img_perturbed = random_perturbation.data_perturbation(img)
     plt.figure()
     plt.imshow(img_perturbed.reshape(28, 28), cmap="gray")
     plt.show()
     
+    # perturbation on training data random
+    normal_perturbation = CDataPerturbGaussian(sigma=100)
+    img = xtr[0,:]
+    img_perturbed = normal_perturbation.data_perturbation(img)
+    plt.figure()
+    plt.imshow(img_perturbed.reshape(28, 28), cmap="gray")
+    plt.show()

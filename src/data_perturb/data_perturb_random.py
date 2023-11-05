@@ -32,11 +32,11 @@ class CDataPerturbRandom(CDataPerturb):
 
     @property
     def k(self):
-        return self._K
+        return self._k
 
     @k.setter
     def k(self, value):
-        self._K = value
+        self._k = value
 
     def data_perturbation(self, x, normalized = False):
         idx = np.array(list(range(0, x.size)))
