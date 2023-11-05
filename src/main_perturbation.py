@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-ENABLE_DISPLAY = True
+ENABLE_DISPLAY = False
 
 # ----------------Internal libraries----------------
 from splitters import split_data
@@ -15,7 +15,7 @@ from classifiers import NMC
 if __name__ == "__main__":
     # dataset loading phase. Creation of training and test set
     filename = "https://github.com/unica-isde/isde/raw/master/data/mnist_data.csv"
-    data_loader = CDataLoaderMNIST(filename=filename, n_samples=10000)
+    data_loader = CDataLoaderMNIST(filename = filename, n_samples = 10000, normalize = False)
     x, y = data_loader.load_data()
     xtr, ytr, xts, yts = split_data(x, y, fraction_tr=0.5)
 
@@ -33,7 +33,7 @@ if __name__ == "__main__":
         plt.show()
     
     # perturbation on training data
-    perturbation = CDataPerturbRandom(k=1)
+    perturbation = CDataPerturbRandom(k=100)
     img = xtr[0,:]
     plt.figure()
     plt.imshow(img.reshape(28, 28), cmap="gray")

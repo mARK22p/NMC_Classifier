@@ -5,9 +5,10 @@ import numpy as np
 
 class CDataLoaderMNIST(CDataLoader):
 
-    def __init__(self, filename, n_samples=None):
+    def __init__(self, filename, n_samples=None, normalize = True):
         self.filename = filename
         self.n_samples = n_samples
+        self.normalize = normalize
 
     def load_data(self):
         '''
@@ -16,8 +17,15 @@ class CDataLoaderMNIST(CDataLoader):
         '''
         data = pd.read_csv(self.filename)
         data = np.array(data)  # cast pandas dataframe to numpy array
+
         if self.n_samples is not None:
             data = data[:self.n_samples, :] # take only the first n_samples rows
-        x = data[:, 1:] / 255 # take every row from data matrix, starting from second column. x is a matrix
+
+        # check if the user want a normalization of the pixels
+        divider = 1 if not self.normalize else 255
+        x = data[:, 1:]/divider # take every row from data matrix, starting from second column. x is a matrix
+        
+        
         y = data[:, 0] # take the first column from data matrix. y is a list
+        
         return x, y

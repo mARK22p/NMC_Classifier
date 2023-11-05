@@ -38,12 +38,17 @@ class CDataPerturbRandom(CDataPerturb):
     def k(self, value):
         self._K = value
 
-    def data_perturbation(self, x):
+    def data_perturbation(self, x, normalized = False):
         idx = np.array(list(range(0, x.size)))
         np.random.shuffle(idx)
         idx = idx[:self._k]
-        #xp = x.copy()
-        x[idx] = np.random.randint(
+        x_perturbed = x.copy()
+
+        divider = 1 if not normalized else 255
+        
+        random_pixels = np.random.randint(
             low=self._min_value,
-            high=self._max_value + 1, size=self._k)
-        return x
+            high=self._max_value + 1, size=self._k)/divider
+        
+        x_perturbed[idx] = random_pixels
+        return x_perturbed
