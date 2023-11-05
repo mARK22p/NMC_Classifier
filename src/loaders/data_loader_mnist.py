@@ -1,9 +1,9 @@
-from loaders import DataLoader
+from loaders import CDataLoader
 import pandas as pd
 import numpy as np
 
 
-class DataLoaderMNIST(DataLoader):
+class CDataLoaderMNIST(CDataLoader):
 
     def __init__(self, filename, n_samples=None):
         self.filename = filename

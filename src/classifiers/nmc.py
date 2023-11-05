@@ -25,10 +25,9 @@ class NMC:
             The next instruction assigns to self._centroids the mean of every image present in the dataset. 
             Xtr[ytr==k,:] generates a boolean vector useful for selecting from the training set only the images of the 
             same class, denoted by k. The axis=0 parameter is used to compute the mean along the row axis (where 
-            axis=0 refers to the row axis). The returned value is a row representing the mean values for each class 
+            axis=0 refers to the "collpase" row axis). The returned value is a row representing the mean values for each class 
         '''
         for k in range(0, n_classes):
-
             self._centroids[k, :] = np.mean(xtr[ytr == k, :], axis=0)
 
     def predict(self, xts):

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class DataLoader(ABC):
+class CDataLoader(ABC):
     """
     Abstract interface to implement data loaders
     """

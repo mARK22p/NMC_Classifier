@@ -6,8 +6,8 @@ ENABLE_DISPLAY = False
 
 # ----------------Internal libraries----------------
 from splitters import split_data
-from loaders import DataLoaderMNIST
-from data_perturb import data_perturb_random
+from loaders import CDataLoaderMNIST
+from data_perturb import CDataPerturbRandom
 from utils import display_utils
 from classifiers import NMC
 # --------------End Internal libraries--------------
@@ -15,7 +15,7 @@ from classifiers import NMC
 if __name__ == "__main__":
     # dataset loading phase. Creation of training and test set
     filename = "https://github.com/unica-isde/isde/raw/master/data/mnist_data.csv"
-    data_loader = DataLoaderMNIST(filename=filename, n_samples=10000)
+    data_loader = CDataLoaderMNIST(filename=filename, n_samples=10000)
     x, y = data_loader.load_data()
     xtr, ytr, xts, yts = split_data(x, y, fraction_tr=0.5)
 
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     print("Test error: " + str(np.mean(yts != y_predicted)))
 
     # perturbation on training data
-    perturbation = data_perturb_random.CDataPerturbRandom()
+    perturbation = CDataPerturbRandom()
     x_perturbed = perturbation.data_perturbation(xtr[0,:])
 
-    print(x_perturbed)
+    print('data perturbed = ', x_perturbed)
