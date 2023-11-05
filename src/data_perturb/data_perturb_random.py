@@ -30,9 +30,25 @@ class CDataPerturbRandom(CDataPerturb):
             raise ValueError(f'max_value parameter should between {0} and {self.MAX_VALUE}')
         self._max_value = value
 
-    def data_perturbation(self, x):
-        x_perturbed = np.zeros(shape=x.shape)
-        noise = np.random.uniform(self._min_value,self._max_value,self._k)
-        x_perturbed = (x[: self._k] + noise) % self._max_value
+    @property
+    def k(self):
+        return self._K
 
+    @k.setter
+    def k(self, value):
+        self._K = value
+
+    def data_perturbation(self, x, normalized = False):
+        idx = np.array(list(range(0, x.size)))
+        np.random.shuffle(idx)
+        idx = idx[:self._k]
+        x_perturbed = x.copy()
+
+        divider = 1 if not normalized else 255
+        
+        random_pixels = np.random.randint(
+            low=self._min_value,
+            high=self._max_value + 1, size=self._k)/divider
+        
+        x_perturbed[idx] = random_pixels
         return x_perturbed

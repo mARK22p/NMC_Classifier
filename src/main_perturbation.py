@@ -15,7 +15,7 @@ from classifiers import NMC
 if __name__ == "__main__":
     # dataset loading phase. Creation of training and test set
     filename = "https://github.com/unica-isde/isde/raw/master/data/mnist_data.csv"
-    data_loader = CDataLoaderMNIST(filename=filename, n_samples=10000)
+    data_loader = CDataLoaderMNIST(filename = filename, n_samples = 10000, normalize = False)
     x, y = data_loader.load_data()
     xtr, ytr, xts, yts = split_data(x, y, fraction_tr=0.5)
 
@@ -31,10 +31,15 @@ if __name__ == "__main__":
         # centroids is a matrix with 10 elements with a mean of training samples
         display_utils.plot_ten_digits(clf.centroids, list(range(0, clf.centroids.shape[0])))
         plt.show()
-
-    y_predicted = clf.predict(xts)
-
-    # compute the test error (fraction of samples that are misclassified)
-    print("Test error: " + str(np.mean(yts != y_predicted)))
-
-
+    
+    # perturbation on training data
+    perturbation = CDataPerturbRandom(k=100)
+    img = xtr[0,:]
+    plt.figure()
+    plt.imshow(img.reshape(28, 28), cmap="gray")
+    plt.show()
+    img_perturbed = perturbation.data_perturbation(img)
+    plt.figure()
+    plt.imshow(img_perturbed.reshape(28, 28), cmap="gray")
+    plt.show()
+    
